@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do</title>
+</head>
+<body>
+    <input type="text" placeholder="title" id="title"><br><br>
+    <input type="text" placeholder="description" id="description"><br><br>
+    <button type="button" onclick="onSubmit()" id="submit">Submit</button><br><br>
+
+    <div id="container"></div>
+
+    <script>
+        let globalId = 1;
+
+        function onDoneButton(id) {
+            let doneButton = document.getElementById(id);
+            //console.log(doneButton);
+            doneButton.children[2].innerHTML = 'Done';
+        }
+
+        function createChild(title,description,id) {
+            let parentElement = document.createElement('div');
+            let firstElement = document.createElement('div');
+            let secondElement = document.createElement('div');
+            let thirdElement = document.createElement('button');
+
+            parentElement.setAttribute('id',id);
+            firstElement.innerHTML = title;
+            secondElement.innerHTML = description;
+            thirdElement.innerHTML = 'Mark as done';
+            thirdElement.setAttribute('onClick',`onDoneButton(${id})`);
+
+            parentElement.append(firstElement,secondElement,thirdElement);
+           // parentElement.appendChild(secondElement);
+           // parentElement.appendChild(thirdElement);
+
+            return parentElement;
+
+        }
+
+        function onSubmit() {
+            let createNewElement = document.getElementById('container');
+            const title = document.getElementById('title').value;
+            const description = document.getElementById('description').value;
+           // console.log(`Title: ${title}`,`Description: ${description}`);
+            createNewElement.appendChild(createChild(title,description,globalId++));
+        }
+    </script>
+</body>
+</html>
